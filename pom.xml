@@ -82,22 +82,22 @@
             <version>1.19.3</version>
             <scope>test</scope>
         </dependency>
-        <!-- Source: https://mvnrepository.com/artifact/org.springframework/spring-test-mvc -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+
+
 
 
     </dependencies>
 
     <build>
+        <finalName>application</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+                    <testExcludes>
+                        <testExclude>**/*.java</testExclude>
+                    </testExcludes>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -120,5 +120,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
