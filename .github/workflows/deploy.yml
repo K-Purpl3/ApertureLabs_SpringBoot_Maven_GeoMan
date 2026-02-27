@@ -3,7 +3,7 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-deploy:
@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '21'
-          distribution: 'temurin'
+          distribution: 'corretto'
           cache: maven
 
       - name: Build with Maven
@@ -25,7 +25,7 @@ jobs:
       - name: Prepare deployment package
         run: |
           mkdir deploy
-          cp target/*.jar deploy/application.jar
+          cp target/application.jar deploy/application.jar
           cp Procfile deploy/Procfile
           cd deploy && zip -r deploy.zip .
 
@@ -34,8 +34,9 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: ${{ secrets.EB_APPLICATION_NAME }}
-          environment_name: ${{ secrets.EB_ENVIRONMENT_NAME }}
+          aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          application_name: ApertureLabs-GeoMan
+          environment_name: aperturelabs-geoman-env
           version_label: ${{ github.sha }}
-          region: ${{ secrets.AWS_REGION }}
+          region: us-east-1
           deployment_package: deploy/deploy.zip
