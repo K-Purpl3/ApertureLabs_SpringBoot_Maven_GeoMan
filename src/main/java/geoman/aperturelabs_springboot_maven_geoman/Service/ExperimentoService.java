@@ -1,4 +1,4 @@
-package geoman.aperturelabs_springboot_maven_geoman.DTO;
+package geoman.aperturelabs_springboot_maven_geoman.Service;
 
 import geoman.aperturelabs_springboot_maven_geoman.DTO.*;
 import geoman.aperturelabs_springboot_maven_geoman.Model.*;

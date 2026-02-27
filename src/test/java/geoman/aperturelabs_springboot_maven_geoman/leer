@@ -1,0 +1,8 @@
+los tests unitarios de la capa servicio como ApertiureScienceServiceTest funciona
+Hay un problema con los test de integracion de la capa repository y controller por WebMvcTest y no se importa bien
+He hecho reload de maven, invalidate cache, rebuild project, de todo y sigue dando el error
+swagger funciona, get post put y delete funcionan
+
+inicar swagger en el puerto 8085
+
+http://localhost:8085/swagger-ui/index.html
