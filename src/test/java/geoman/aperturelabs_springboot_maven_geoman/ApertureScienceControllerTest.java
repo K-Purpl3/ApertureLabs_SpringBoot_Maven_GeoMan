@@ -6,7 +6,7 @@ import geoman.aperturelabs_springboot_maven_geoman.DTO.ApertureScienceDTO;
 import geoman.aperturelabs_springboot_maven_geoman.Service.ApertureScienceService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -59,12 +59,13 @@ class ApertureScienceControllerTest {
 
     @Test
     void save_deberiaRetornar200ConDTOCreado() throws Exception {
-        ApertureScienceDTO input = new ApertureScienceDTO(null, "Aperture Science", "We do what we must", "Michigan", 1953);
+        ApertureScienceDTO input = new ApertureScienceDTO(null, "Aperture Science", "We do what we must", "Michigan",
+                1953);
         when(service.save(any(ApertureScienceDTO.class))).thenReturn(dtoEjemplo());
 
         mockMvc.perform(post("/api/aperture-science")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(input)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(input)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.nombre").value("Aperture Science"));
@@ -77,8 +78,8 @@ class ApertureScienceControllerTest {
         when(service.update(eq(1L), any(ApertureScienceDTO.class))).thenReturn(updated);
 
         mockMvc.perform(put("/api/aperture-science/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(input)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(input)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.nombre").value("Aperture Science Updated"))
                 .andExpect(jsonPath("$.slogan").value("New slogan"));

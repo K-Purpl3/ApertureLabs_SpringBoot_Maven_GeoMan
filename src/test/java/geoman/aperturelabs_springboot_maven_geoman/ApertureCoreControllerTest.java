@@ -6,7 +6,7 @@ import geoman.aperturelabs_springboot_maven_geoman.DTO.ApertureCoreDTO;
 import geoman.aperturelabs_springboot_maven_geoman.Service.ApertureCoreService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -62,8 +62,8 @@ class ApertureCoreControllerTest {
         when(service.save(any(ApertureCoreDTO.class))).thenReturn(dtoEjemplo());
 
         mockMvc.perform(post("/api/aperture-core")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(input)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(input)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.nombre").value("Wheatley"));
@@ -76,8 +76,8 @@ class ApertureCoreControllerTest {
         when(service.update(eq(1L), any(ApertureCoreDTO.class))).thenReturn(updated);
 
         mockMvc.perform(put("/api/aperture-core/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(input)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(input)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.personalidad").value("Ahora malvado"));
     }

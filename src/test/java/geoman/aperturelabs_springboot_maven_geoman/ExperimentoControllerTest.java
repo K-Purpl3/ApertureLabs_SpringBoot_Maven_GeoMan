@@ -6,7 +6,7 @@ import geoman.aperturelabs_springboot_maven_geoman.DTO.ExperimentoDTO;
 import geoman.aperturelabs_springboot_maven_geoman.Service.ExperimentoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,7 +18,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 
 @WebMvcTest(ExperimentoController.class)
 class ExperimentoControllerTest {
@@ -61,12 +60,13 @@ class ExperimentoControllerTest {
 
     @Test
     void save_deberiaRetornar200ConDTOCreado() throws Exception {
-        ExperimentoDTO input = new ExperimentoDTO(null, "Test Gel Portal", "Prueba de gel azul", "en progreso", "Camara-01", 2L, 3L);
+        ExperimentoDTO input = new ExperimentoDTO(null, "Test Gel Portal", "Prueba de gel azul", "en progreso",
+                "Camara-01", 2L, 3L);
         when(service.save(any(ExperimentoDTO.class))).thenReturn(dtoEjemplo());
 
         mockMvc.perform(post("/api/experimento")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(input)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(input)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.nombre").value("Test Gel Portal"));
@@ -74,13 +74,15 @@ class ExperimentoControllerTest {
 
     @Test
     void update_deberiaRetornar200ConDTOActualizado() throws Exception {
-        ExperimentoDTO input = new ExperimentoDTO(null, "Test Gel Portal", "Prueba completada", "exitoso", "Camara-01", 2L, 3L);
-        ExperimentoDTO updated = new ExperimentoDTO(1L, "Test Gel Portal", "Prueba completada", "exitoso", "Camara-01", 2L, 3L);
+        ExperimentoDTO input = new ExperimentoDTO(null, "Test Gel Portal", "Prueba completada", "exitoso", "Camara-01",
+                2L, 3L);
+        ExperimentoDTO updated = new ExperimentoDTO(1L, "Test Gel Portal", "Prueba completada", "exitoso", "Camara-01",
+                2L, 3L);
         when(service.update(eq(1L), any(ExperimentoDTO.class))).thenReturn(updated);
 
         mockMvc.perform(put("/api/experimento/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(input)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(input)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.resultado").value("exitoso"))
                 .andExpect(jsonPath("$.descripcion").value("Prueba completada"));

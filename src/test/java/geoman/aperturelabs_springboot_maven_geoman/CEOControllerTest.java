@@ -6,7 +6,7 @@ import geoman.aperturelabs_springboot_maven_geoman.DTO.CEODTO;
 import geoman.aperturelabs_springboot_maven_geoman.Service.CEOService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -62,8 +62,8 @@ class CEOControllerTest {
         when(service.save(any(CEODTO.class))).thenReturn(dtoEjemplo());
 
         mockMvc.perform(post("/api/ceo")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(input)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(input)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.nombre").value("Cave Johnson"));
@@ -76,8 +76,8 @@ class CEOControllerTest {
         when(service.update(eq(1L), any(CEODTO.class))).thenReturn(updated);
 
         mockMvc.perform(put("/api/ceo/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(input)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(input)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.nombre").value("Caroline"))
                 .andExpect(jsonPath("$.estado").value("Fallecido"));
