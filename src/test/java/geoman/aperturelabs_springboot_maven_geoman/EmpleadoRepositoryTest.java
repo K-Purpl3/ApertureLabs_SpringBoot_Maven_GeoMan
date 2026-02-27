@@ -7,8 +7,8 @@ import geoman.aperturelabs_springboot_maven_geoman.Repository.EmpleadoRepository
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 import java.util.List;
@@ -34,8 +34,7 @@ class EmpleadoRepositoryTest {
         empleadoRepository.deleteAll();
         apertureCoreRepository.deleteAll();
         core = apertureCoreRepository.save(
-                new ApertureCore(null, "GLaDOS", "Calculadora", "activo", null, null)
-        );
+                new ApertureCore(null, "GLaDOS", "Calculadora", "activo", null, null));
     }
 
     @Test
@@ -66,8 +65,7 @@ class EmpleadoRepositoryTest {
     @Test
     void findById_deberiaEncontrarEmpleadoPorId() {
         Empleado empleado = empleadoRepository.save(
-                new Empleado(null, "Doug Rattmann", "R&D", "Investigacion", "desaparecido", null)
-        );
+                new Empleado(null, "Doug Rattmann", "R&D", "Investigacion", "desaparecido", null));
 
         Optional<Empleado> resultado = empleadoRepository.findById(empleado.getId());
 
@@ -96,8 +94,7 @@ class EmpleadoRepositoryTest {
     @Test
     void deleteById_deberiaEliminarEmpleado() {
         Empleado empleado = empleadoRepository.save(
-                new Empleado(null, "Doug Rattmann", "R&D", "Investigacion", "activo", null)
-        );
+                new Empleado(null, "Doug Rattmann", "R&D", "Investigacion", "activo", null));
 
         empleadoRepository.deleteById(empleado.getId());
 
@@ -107,8 +104,7 @@ class EmpleadoRepositoryTest {
     @Test
     void update_deberiaActualizarEstadoEmpleado() {
         Empleado empleado = empleadoRepository.save(
-                new Empleado(null, "Doug Rattmann", "R&D", "Investigacion", "activo", null)
-        );
+                new Empleado(null, "Doug Rattmann", "R&D", "Investigacion", "activo", null));
 
         empleado.setEstado("desaparecido");
         Empleado actualizado = empleadoRepository.save(empleado);

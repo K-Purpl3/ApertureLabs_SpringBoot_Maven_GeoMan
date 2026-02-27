@@ -5,8 +5,8 @@ import geoman.aperturelabs_springboot_maven_geoman.Repository.ApertureCoreReposi
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 import java.util.List;
@@ -42,8 +42,7 @@ class ApertureCoreRepositoryTest {
     @Test
     void findById_deberiaEncontrarCorePorId() {
         ApertureCore core = repository.save(
-                new ApertureCore(null, "GLaDOS", "Calculadora y siniestra", "activo", null, null)
-        );
+                new ApertureCore(null, "GLaDOS", "Calculadora y siniestra", "activo", null, null));
 
         Optional<ApertureCore> resultado = repository.findById(core.getId());
 
@@ -72,8 +71,7 @@ class ApertureCoreRepositoryTest {
     @Test
     void deleteById_deberiaEliminarCore() {
         ApertureCore core = repository.save(
-                new ApertureCore(null, "Wheatley", "Estupido", "activo", null, null)
-        );
+                new ApertureCore(null, "Wheatley", "Estupido", "activo", null, null));
 
         repository.deleteById(core.getId());
 
@@ -83,8 +81,7 @@ class ApertureCoreRepositoryTest {
     @Test
     void update_deberiaActualizarEstadoDelCore() {
         ApertureCore core = repository.save(
-                new ApertureCore(null, "Wheatley", "Estupido", "activo", null, null)
-        );
+                new ApertureCore(null, "Wheatley", "Estupido", "activo", null, null));
 
         core.setEstado("destruido");
         ApertureCore actualizado = repository.save(core);

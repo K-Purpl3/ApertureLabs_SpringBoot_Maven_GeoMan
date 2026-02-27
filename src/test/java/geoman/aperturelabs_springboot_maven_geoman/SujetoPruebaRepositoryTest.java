@@ -7,8 +7,8 @@ import geoman.aperturelabs_springboot_maven_geoman.Repository.SujetoPruebaReposi
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 import java.util.List;
@@ -34,8 +34,7 @@ class SujetoPruebaRepositoryTest {
         sujetoPruebaRepository.deleteAll();
         apertureCoreRepository.deleteAll();
         core = apertureCoreRepository.save(
-                new ApertureCore(null, "GLaDOS", "Calculadora y siniestra", "activo", null, null)
-        );
+                new ApertureCore(null, "GLaDOS", "Calculadora y siniestra", "activo", null, null));
     }
 
     @Test
@@ -65,8 +64,7 @@ class SujetoPruebaRepositoryTest {
     @Test
     void findById_deberiaEncontrarSujetoPorId() {
         SujetoPrueba sujeto = sujetoPruebaRepository.save(
-                new SujetoPrueba(null, "Chell", "escapado", 1, null, null)
-        );
+                new SujetoPrueba(null, "Chell", "escapado", 1, null, null));
 
         Optional<SujetoPrueba> resultado = sujetoPruebaRepository.findById(sujeto.getId());
 
@@ -95,8 +93,7 @@ class SujetoPruebaRepositoryTest {
     @Test
     void deleteById_deberiaEliminarSujeto() {
         SujetoPrueba sujeto = sujetoPruebaRepository.save(
-                new SujetoPrueba(null, "Chell", "activo", 1, null, null)
-        );
+                new SujetoPrueba(null, "Chell", "activo", 1, null, null));
 
         sujetoPruebaRepository.deleteById(sujeto.getId());
 
@@ -106,8 +103,7 @@ class SujetoPruebaRepositoryTest {
     @Test
     void update_deberiaActualizarEstadoDeSujeto() {
         SujetoPrueba sujeto = sujetoPruebaRepository.save(
-                new SujetoPrueba(null, "Chell", "activo", 1, null, null)
-        );
+                new SujetoPrueba(null, "Chell", "activo", 1, null, null));
 
         sujeto.setEstado("escapado");
         SujetoPrueba actualizado = sujetoPruebaRepository.save(sujeto);

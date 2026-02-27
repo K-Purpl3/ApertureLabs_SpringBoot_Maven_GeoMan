@@ -5,8 +5,8 @@ import geoman.aperturelabs_springboot_maven_geoman.Repository.ApertureScienceRep
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 import java.util.List;
@@ -29,7 +29,8 @@ class ApertureScienceRepositoryTest {
 
     @Test
     void save_deberiaGuardarEmpresa() {
-        ApertureScience empresa = new ApertureScience(null, "Aperture Science", "We do what we must", "Michigan", 1953, null);
+        ApertureScience empresa = new ApertureScience(null, "Aperture Science", "We do what we must", "Michigan", 1953,
+                null);
 
         ApertureScience guardada = repository.save(empresa);
 
@@ -43,8 +44,7 @@ class ApertureScienceRepositoryTest {
     @Test
     void findById_deberiaEncontrarEmpresaExistente() {
         ApertureScience empresa = repository.save(
-                new ApertureScience(null, "Aperture Science", "We do what we must", "Michigan", 1953, null)
-        );
+                new ApertureScience(null, "Aperture Science", "We do what we must", "Michigan", 1953, null));
 
         Optional<ApertureScience> resultado = repository.findById(empresa.getId());
 
@@ -72,8 +72,7 @@ class ApertureScienceRepositoryTest {
     @Test
     void deleteById_deberiaEliminarEmpresa() {
         ApertureScience empresa = repository.save(
-                new ApertureScience(null, "Aperture Science", "We do what we must", "Michigan", 1953, null)
-        );
+                new ApertureScience(null, "Aperture Science", "We do what we must", "Michigan", 1953, null));
 
         repository.deleteById(empresa.getId());
 
@@ -83,8 +82,7 @@ class ApertureScienceRepositoryTest {
     @Test
     void update_deberiaActualizarDatosDeEmpresa() {
         ApertureScience empresa = repository.save(
-                new ApertureScience(null, "Aperture Science", "Slogan original", "Michigan", 1953, null)
-        );
+                new ApertureScience(null, "Aperture Science", "Slogan original", "Michigan", 1953, null));
 
         empresa.setSlogan("Science isn't about why");
         empresa.setUbicacion("Cave Johnson's Lab");

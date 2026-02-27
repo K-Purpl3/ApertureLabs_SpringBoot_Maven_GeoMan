@@ -9,8 +9,8 @@ import geoman.aperturelabs_springboot_maven_geoman.Repository.SujetoPruebaReposi
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 import java.util.List;
@@ -41,16 +41,15 @@ class ExperimentoRepositoryTest {
         apertureCoreRepository.deleteAll();
 
         ApertureCore core = apertureCoreRepository.save(
-                new ApertureCore(null, "GLaDOS", "Siniestra", "activo", null, null)
-        );
+                new ApertureCore(null, "GLaDOS", "Siniestra", "activo", null, null));
         sujetoPrueba = sujetoPruebaRepository.save(
-                new SujetoPrueba(null, "Chell", "activo", 1, core, null)
-        );
+                new SujetoPrueba(null, "Chell", "activo", 1, core, null));
     }
 
     @Test
     void save_deberiaGuardarExperimentoSinSujeto() {
-        Experimento experimento = new Experimento(null, "Test Gel Portal", "Prueba de gel azul", "en progreso", "Camara-01", 1L, null);
+        Experimento experimento = new Experimento(null, "Test Gel Portal", "Prueba de gel azul", "en progreso",
+                "Camara-01", 1L, null);
 
         Experimento guardado = experimentoRepository.save(experimento);
 
@@ -63,7 +62,8 @@ class ExperimentoRepositoryTest {
 
     @Test
     void save_deberiaGuardarExperimentoConSujeto() {
-        Experimento experimento = new Experimento(null, "Test Gel Portal", "Prueba de gel azul", "en progreso", "Camara-01", 1L, sujetoPrueba);
+        Experimento experimento = new Experimento(null, "Test Gel Portal", "Prueba de gel azul", "en progreso",
+                "Camara-01", 1L, sujetoPrueba);
 
         Experimento guardado = experimentoRepository.save(experimento);
 
@@ -75,8 +75,7 @@ class ExperimentoRepositoryTest {
     @Test
     void findById_deberiaEncontrarExperimentoPorId() {
         Experimento experimento = experimentoRepository.save(
-                new Experimento(null, "Turret Test", "Prueba de torretas", "exitoso", "Camara-19", 2L, sujetoPrueba)
-        );
+                new Experimento(null, "Turret Test", "Prueba de torretas", "exitoso", "Camara-19", 2L, sujetoPrueba));
 
         Optional<Experimento> resultado = experimentoRepository.findById(experimento.getId());
 
@@ -94,8 +93,10 @@ class ExperimentoRepositoryTest {
 
     @Test
     void findAll_deberiaRetornarTodosLosExperimentos() {
-        experimentoRepository.save(new Experimento(null, "Turret Test", "Torretas", "exitoso", "Camara-19", 1L, sujetoPrueba));
-        experimentoRepository.save(new Experimento(null, "Gel Test", "Gel azul", "fallido", "Camara-07", 2L, sujetoPrueba));
+        experimentoRepository
+                .save(new Experimento(null, "Turret Test", "Torretas", "exitoso", "Camara-19", 1L, sujetoPrueba));
+        experimentoRepository
+                .save(new Experimento(null, "Gel Test", "Gel azul", "fallido", "Camara-07", 2L, sujetoPrueba));
 
         List<Experimento> resultado = experimentoRepository.findAll();
 
@@ -105,8 +106,7 @@ class ExperimentoRepositoryTest {
     @Test
     void deleteById_deberiaEliminarExperimento() {
         Experimento experimento = experimentoRepository.save(
-                new Experimento(null, "Turret Test", "Torretas", "exitoso", "Camara-19", 1L, sujetoPrueba)
-        );
+                new Experimento(null, "Turret Test", "Torretas", "exitoso", "Camara-19", 1L, sujetoPrueba));
 
         experimentoRepository.deleteById(experimento.getId());
 
@@ -116,8 +116,7 @@ class ExperimentoRepositoryTest {
     @Test
     void update_deberiaActualizarResultadoDeExperimento() {
         Experimento experimento = experimentoRepository.save(
-                new Experimento(null, "Gel Test", "Prueba gel", "en progreso", "Camara-07", 1L, sujetoPrueba)
-        );
+                new Experimento(null, "Gel Test", "Prueba gel", "en progreso", "Camara-07", 1L, sujetoPrueba));
 
         experimento.setResultado("exitoso");
         Experimento actualizado = experimentoRepository.save(experimento);

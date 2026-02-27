@@ -7,8 +7,8 @@ import geoman.aperturelabs_springboot_maven_geoman.Repository.CEORepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 import java.util.List;
@@ -34,8 +34,7 @@ class CEORepositoryTest {
         ceoRepository.deleteAll();
         empresaRepository.deleteAll();
         empresa = empresaRepository.save(
-                new ApertureScience(null, "Aperture Science", "We do what we must", "Michigan", 1953, null)
-        );
+                new ApertureScience(null, "Aperture Science", "We do what we must", "Michigan", 1953, null));
     }
 
     @Test
@@ -71,8 +70,7 @@ class CEORepositoryTest {
     @Test
     void findAll_deberiaRetornarTodosLosCEOs() {
         ApertureScience empresa2 = empresaRepository.save(
-                new ApertureScience(null, "Aperture Labs", "For Science", "Utah", 1955, null)
-        );
+                new ApertureScience(null, "Aperture Labs", "For Science", "Utah", 1955, null));
         ceoRepository.save(new CEO(null, "Cave Johnson", "vivo", 1953, empresa));
         ceoRepository.save(new CEO(null, "Caroline", "IA", 1994, empresa2));
 
