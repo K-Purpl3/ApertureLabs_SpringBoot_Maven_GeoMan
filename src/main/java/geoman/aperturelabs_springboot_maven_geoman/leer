@@ -5,4 +5,5 @@ swagger funciona, get post put y delete funcionan
 
 inicar swagger en el puerto 8085
 
-http://localhost:8085/swagger-ui/index.html
+http://localhost:8085/swagger-ui/index.html para local
+http://aperturelabs-geoman-env.eba-qh5g9rf6.us-east-1.elasticbeanstalk.com/swagger-ui/index.html para acceder al del elastic beanstalk

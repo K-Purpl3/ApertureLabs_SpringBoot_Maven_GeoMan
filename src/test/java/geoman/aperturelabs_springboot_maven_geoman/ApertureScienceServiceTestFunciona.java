@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ApertureScienceServiceTest {
+public class ApertureScienceServiceTestFunciona {
 
     @Mock
     private ApertureScienceRepository repository;
